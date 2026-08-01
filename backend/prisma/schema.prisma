@@ -1,8 +1,115 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Organization {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  plan      String   @default("free")
+  settings  Json?
+  createdAt DateTime @default(now())
+
+  users       User[]
+  invitations Invitation[]
+  tickets     Ticket[]
+  auditLogs   AuditLog[]
+}
+
+model User {
+  id           String   @id @default(uuid())
+  orgId        String
+  organization Organization @relation(fields: [orgId], references: [id])
+  email        String   @unique
+  passwordHash String?
+  role         String   @default("agent")
+  status       String   @default("active")
+  googleId     String?  @unique
+  createdAt    DateTime @default(now())
+
+  ticketsAssigned Ticket[] @relation("TicketAssignee")
+  auditLogs       AuditLog[]
+}
+
+model Invitation {
+  id           String       @id @default(uuid())
+  orgId        String
+  organization Organization @relation(fields: [orgId], references: [id])
+  email        String
+  token        String       @unique
+  role         String       @default("agent")
+  expiresAt    DateTime
+  createdAt    DateTime     @default(now())
+
+  @@unique([orgId, email])
+}
+
+model Ticket {
+  id            String       @id @default(uuid())
+  orgId         String
+  organization  Organization @relation(fields: [orgId], references: [id])
+  assignedTo    String?
+  assignee      User?        @relation("TicketAssignee", fields: [assignedTo], references: [id])
+  subject       String
+  status        String       @default("open")
+  priority      String       @default("medium")
+  source        String       @default("email")
+  customerEmail String
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  messages      TicketMessage[]
+  aiAnalysis    TicketAiAnalysis?
+}
+
+model TicketMessage {
+  id            String   @id @default(uuid())
+  ticketId      String
+  ticket        Ticket   @relation(fields: [ticketId], references: [id])
+  body          String
+  isInternal    Boolean  @default(false)
+  isAiGenerated Boolean  @default(false)
+  senderType    String   // 'customer', 'agent', 'bot'
+  createdAt     DateTime @default(now())
+}
+
+model TicketAiAnalysis {
+  id               String   @id @default(uuid())
+  ticketId         String   @unique
+  ticket           Ticket   @relation(fields: [ticketId], references: [id])
+  category         String?
+  subcategory      String?
+  priority         String?
+  sentiment        String?
+  intent           String?
+  urgency          String?
+  language         String?
+  confidenceScore  Float?
+  summary          String?
+  escalationFlag   Boolean  @default(false)
+  escalationReason String?
+  createdAt        DateTime @default(now())
+}
+
+model AuditLog {
+  id           String       @id @default(uuid())
+  orgId        String
+  organization Organization @relation(fields: [orgId], references: [id])
+  userId       String?
+  user         User?        @relation(fields: [userId], references: [id])
+  action       String
+  metadata     Json?
+  createdAt    DateTime     @default(now())
+}
+
+model DocumentChunk {
+  id        String   @id @default(uuid())
+  content   String
+  embedding Unsupported("vector(768)")?
+  createdAt DateTime @default(now())
 }

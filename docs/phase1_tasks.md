@@ -39,20 +39,20 @@
 ## Sprint 2 — Database Schema (Days 5–7)
 
 ### T2.1 – Prisma Schema Design
-- [ ] Define `Organization` model (id, name, slug, plan, settings, createdAt)
-- [ ] Define `User` model (id, orgId, email, passwordHash, role, status, googleId)
-- [ ] Define `Invitation` model (id, orgId, email, token, role, expiresAt)
-- [ ] Define `Ticket` model (id, orgId, assignedTo, subject, status, priority, source, customerEmail, createdAt)
-- [ ] Define `TicketMessage` model (id, ticketId, body, isInternal, isAiGenerated, senderType)
-- [ ] Define `TicketAiAnalysis` model (ticketId, category, subcategory, priority, sentiment, intent, urgency, language, confidenceScore, summary, escalationFlag, escalationReason)
-- [ ] Define `AuditLog` model (id, orgId, userId, action, metadata, createdAt)
-- [ ] Run `prisma migrate dev --name init` to create tables in Supabase
+- [x] Define `Organization` model (id, name, slug, plan, settings, createdAt)
+- [x] Define `User` model (id, orgId, email, passwordHash, role, status, googleId)
+- [x] Define `Invitation` model (id, orgId, email, token, role, expiresAt)
+- [x] Define `Ticket` model (id, orgId, assignedTo, subject, status, priority, source, customerEmail, createdAt)
+- [x] Define `TicketMessage` model (id, ticketId, body, isInternal, isAiGenerated, senderType)
+- [x] Define `TicketAiAnalysis` model (ticketId, category, subcategory, priority, sentiment, intent, urgency, language, confidenceScore, summary, escalationFlag, escalationReason)
+- [x] Define `AuditLog` model (id, orgId, userId, action, metadata, createdAt)
+- [x] Run `prisma migrate dev --name init` to create tables in Supabase
 
 ### T2.2 – pgvector Setup (for Phase 2 readiness)
-- [ ] Enable pgvector extension in Supabase (`CREATE EXTENSION vector`)
-- [ ] Add `DocumentChunk` model with `embedding vector(768)` column
-- [ ] Add ivfflat index for cosine similarity searches
-- [ ] Run migration
+- [x] Enable pgvector extension in Supabase (`CREATE EXTENSION vector`)
+- [x] Add `DocumentChunk` model with `embedding vector(768)` column
+- [x] Add ivfflat index for cosine similarity searches
+- [x] Run migration
 
 ---
 

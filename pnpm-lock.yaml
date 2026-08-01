@@ -35,6 +35,9 @@ importers:
       morgan:
         specifier: ^1.10.0
         version: 1.11.0(supports-color@8.1.1)
+      pgvector:
+        specifier: ^0.3.0
+        version: 0.3.0
     devDependencies:
       '@types/cors':
         specifier: ^2.8.17
@@ -2491,6 +2494,10 @@ packages:
 
   path-to-regexp@8.4.2:
     resolution: {integrity: sha512-qRcuIdP69NPm4qbACK+aDogI5CBDMi1jKe0ry5rSQJz8JVLsC7jV8XpiJjGRLLol3N+R5ihGYcrPLTno6pAdBA==}
+
+  pgvector@0.3.0:
+    resolution: {integrity: sha512-+t7qcQD2us8fO8YIq/3lA0gUrD+bVO70MG1MhcDcxJz/OlRGGIIHzFq/4x57Vn/LpzX5wFdfOTLQp9QMPd4ljQ==}
+    engines: {node: '>=22'}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -5843,6 +5850,8 @@ snapshots:
   path-to-regexp@0.1.13: {}
 
   path-to-regexp@8.4.2: {}
+
+  pgvector@0.3.0: {}
 
   picocolors@1.1.1: {}
 
