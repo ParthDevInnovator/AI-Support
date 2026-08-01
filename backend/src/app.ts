@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import { errorHandler } from './middleware/errorHandler';
+import authRoutes from './routes/auth.routes';
 
 const app: Express = express();
 
@@ -17,8 +18,8 @@ app.get('/health', (req: Request, res: Response) => {
     res.status(200).json({ status: 'ok', message: 'API is healthy' });
 });
 
-// Routes (to be added)
-
+// Routes
+app.use('/api/auth', authRoutes);
 // Global Error Handler (must be after routes)
 app.use(errorHandler);
 

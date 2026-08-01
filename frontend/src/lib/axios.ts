@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useAuthStore } from '../store';
 
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api',
@@ -10,12 +11,10 @@ const api = axios.create({
 
 // Auth interceptor to attach JWT
 api.interceptors.request.use((config) => {
-    // We'll manage tokens via cookies or Zustand (if memory) later.
-    // For now, this is a placeholder where JWT retrieval would happen.
-    // const token = useStore.getState().token;
-    // if (token) {
-    //   config.headers.Authorization = `Bearer ${token}`;
-    // }
+    const token = useAuthStore.getState().token;
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
 });
 
