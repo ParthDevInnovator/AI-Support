@@ -30,9 +30,9 @@
 - [x] Setup Axios instance with base URL + auth interceptor (attach JWT)
 
 ### T1.4 – CI/CD
-- [ ] Setup GitHub repository
-- [ ] Add GitHub Actions workflow: lint + typecheck on every PR
-- [ ] Add separate deploy workflows for Vercel (frontend) and Render (backend)
+- [x] Setup GitHub repository
+- [x] Add GitHub Actions workflow: lint + typecheck on every PR
+- [x] Add separate deploy workflows for Vercel (frontend) and Render (backend)
 
 ---
 
