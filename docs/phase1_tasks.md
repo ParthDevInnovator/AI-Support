@@ -7,8 +7,8 @@
 ## Sprint 1 — Project Setup & Infrastructure (Days 1–4)
 
 ### T1.1 – Monorepo Scaffold
-- [ ] Init monorepo with `pnpm workspaces` (frontend, backend, shared)
-- [ ] Setup `tsconfig.json` for each workspace with path aliases
+- [x] Init monorepo with `pnpm workspaces` (frontend, backend, shared)
+- [x] Setup `tsconfig.json` for each workspace with path aliases
 - [x] Add `docker-compose.yml` (local Postgres + Redis for dev)
 - [x] Setup `.env.example` with all required env vars documented
 - [x] Add `shared/` package with shared Zod schemas
@@ -59,26 +59,26 @@
 ## Sprint 3 — Authentication (Days 8–13)
 
 ### T3.1 – Backend Auth
-- [ ] `POST /api/auth/register` — create org + admin user, hash password (bcrypt)
-- [ ] `POST /api/auth/login` — validate credentials, return JWT access token + refresh token
-- [ ] `POST /api/auth/refresh` — validate refresh token, return new access token
-- [ ] `POST /api/auth/logout` — invalidate refresh token
-- [ ] `POST /api/auth/forgot-password` — generate reset token, send email (Nodemailer + Gmail SMTP)
-- [ ] `POST /api/auth/reset-password` — validate token, update password
-- [ ] `GET /api/auth/google` — Google OAuth initiation (Passport.js)
-- [ ] `GET /api/auth/google/callback` — OAuth callback, create/login user, return JWT
-- [ ] Create `authMiddleware` — verify JWT, attach `req.user` (userId, orgId, role)
-- [ ] Create `roleGuard(roles[])` middleware — RBAC enforcement
+- [x] `POST /api/auth/register` — create org + admin user, hash password (bcrypt)
+- [x] `POST /api/auth/login` — validate credentials, return JWT access token + refresh token
+- [x] `POST /api/auth/refresh` — validate refresh token, return new access token
+- [x] `POST /api/auth/logout` — invalidate refresh token
+- [x] `POST /api/auth/forgot-password` — generate reset token, send email (Nodemailer + Gmail SMTP)
+- [x] `POST /api/auth/reset-password` — validate token, update password
+- [x] `GET /api/auth/google` — Google OAuth initiation (Passport.js)
+- [x] `GET /api/auth/google/callback` — OAuth callback, create/login user, return JWT
+- [x] Create `authMiddleware` — verify JWT, attach `req.user` (userId, orgId, role)
+- [x] Create `roleGuard(roles[])` middleware — RBAC enforcement
 
 ### T3.2 – Frontend Auth
-- [ ] `/register` page — org name + email + password form
-- [ ] `/login` page — email + password + Google OAuth button
-- [ ] `/forgot-password` page — email form
-- [ ] `/reset-password/[token]` page — new password form
-- [ ] Store JWT in memory (access token) + httpOnly cookie (refresh token)
-- [ ] Auth context / Zustand slice: `user`, `org`, `isAuthenticated`, `login()`, `logout()`
-- [ ] Protected route wrapper — redirect to `/login` if not authenticated
-- [ ] Role-based layout rendering (admin nav vs agent nav)
+- [x] `/register` page — org name + email + password form
+- [x] `/login` page — email + password form + "Login with Google" button
+- [x] `/forgot-password` and `/reset-password` UI
+- [x] Layout definition (Auth layout with standard branding)
+- [x] Protected route wrapper (`requireAuth` HOC or middleware) + httpOnly cookie (refresh token)
+- [x] Auth context / Zustand slice: `user`, `org`, `isAuthenticated`, `login()`, `logout()`
+- [x] Protected route wrapper — redirect to `/login` if not authenticated
+- [x] Role-based layout rendering (admin nav vs agent nav)
 
 ### T3.3 – Organization Setup Flow
 - [ ] After first login: if no org → redirect to `/onboarding`

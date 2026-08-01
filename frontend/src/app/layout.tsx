@@ -15,8 +15,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "AI Support Triage Platform",
-  description: "AI-powered customer support triage SaaS platform",
+  title: "Resolvo — AI-Powered Support Triage",
+  description: "Resolvo intelligently classifies, routes, and resolves customer tickets in seconds using AI. Built for modern support teams.",
 };
 
 export default function RootLayout({

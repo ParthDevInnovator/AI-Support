@@ -28,9 +28,11 @@ model User {
   email        String   @unique
   passwordHash String?
   role         String   @default("agent")
-  status       String   @default("active")
-  googleId     String?  @unique
-  createdAt    DateTime @default(now())
+  status              String    @default("active")
+  googleId            String?   @unique
+  resetToken          String?
+  resetTokenExpiresAt DateTime?
+  createdAt           DateTime  @default(now())
 
   ticketsAssigned Ticket[] @relation("TicketAssignee")
   auditLogs       AuditLog[]
