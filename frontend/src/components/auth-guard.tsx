@@ -8,18 +8,22 @@ import { Loader2 } from 'lucide-react';
 export default function AuthGuard({ children }: { children: React.ReactNode }) {
     const router = useRouter();
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
-
-    // Need to handle hydration mismatch by rendering only after mount
-    const [isMounted, setIsMounted] = useState(false);
+    const user = useAuthStore((state) => state.user);
+    const _hasHydrated = useAuthStore((state) => state._hasHydrated);
 
     useEffect(() => {
-        setIsMounted(true);
+        if (!_hasHydrated) return; // Wait for hydration before executing redirect logic
+
         if (!isAuthenticated) {
             router.push('/login');
+        } else if (user && !user.orgId && !window.location.pathname.startsWith('/onboarding')) {
+            router.push('/onboarding');
+        } else if (user && user.orgId && window.location.pathname.startsWith('/onboarding')) {
+            router.push('/dashboard');
         }
-    }, [isAuthenticated, router]);
+    }, [_hasHydrated, isAuthenticated, user, router]);
 
-    if (!isMounted || !isAuthenticated) {
+    if (!_hasHydrated || !isAuthenticated) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-slate-50 dark:bg-slate-950">
                 <Loader2 className="w-8 h-8 animate-spin text-indigo-600" />
