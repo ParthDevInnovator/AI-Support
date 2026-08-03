@@ -81,9 +81,9 @@
 - [x] Role-based layout rendering (admin nav vs agent nav)
 
 ### T3.3 – Organization Setup Flow
-- [ ] After first login: if no org → redirect to `/onboarding`
-- [ ] `/onboarding` page — enter org name, timezone, create workspace
-- [ ] `POST /api/org/setup` — create organization, assign creator as admin
+- [x] After first login: if no org → redirect to `/onboarding`
+- [x] `/onboarding` page — enter org name, timezone, create workspace
+- [x] `POST /api/org/setup` — create organization, assign creator as admin
 
 ---
 

@@ -7,7 +7,7 @@ const REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || '7d';
 
 export interface JwtPayload {
     userId: string;
-    orgId: string;
+    orgId: string | null;
     role: string;
 }
 

@@ -38,28 +38,20 @@ if (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET) {
                         });
                     }
 
-                    // In this specific platform, org creation might be required first or via invite.
-                    // If no user exists at all, we create a pseudo-org for them or reject.
+                    // If no user exists at all, we create a user without an org.
                     // Based on Phase 1 requirements, "After first login: if no org -> redirect to /onboarding"
-                    // Let's create an onboarding pseudo-org and user if totally new.
                     if (!user) {
-                        const orgName = `${profile.displayName || 'User'}'s Workspace`;
-                        // generate a slug
-                        const slug = orgName.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + Math.random().toString(36).substring(2, 5);
-
-                        const newOrg = await prisma.organization.create({
-                            data: { name: orgName, slug },
-                        });
-
-                        user = await prisma.user.create({
+                        user = (await prisma.user.create({
                             data: {
                                 email,
                                 googleId: profile.id,
                                 role: 'admin',
-                                orgId: newOrg.id,
                             },
-                            include: { organization: true },
-                        });
+                        })) as any;
+                    }
+
+                    if (!user) {
+                        return done(new Error('Failed to create or find user'));
                     }
 
                     if (user.status !== 'active') {

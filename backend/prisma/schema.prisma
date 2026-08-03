@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Organization {
@@ -23,8 +24,8 @@ model Organization {
 
 model User {
   id           String   @id @default(uuid())
-  orgId        String
-  organization Organization @relation(fields: [orgId], references: [id])
+  orgId        String?
+  organization Organization? @relation(fields: [orgId], references: [id])
   email        String   @unique
   passwordHash String?
   role         String   @default("agent")
