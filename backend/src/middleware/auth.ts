@@ -22,7 +22,7 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
         const payload = verifyAccessToken(token);
         req.user = payload as Express.User;
         next();
-    } catch (error) {
+    } catch (_error) {
         return res.status(401).json({ error: 'Unauthorized: Invalid or expired token' });
     }
 };

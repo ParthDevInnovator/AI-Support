@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoginSchema, LoginInput } from '@repo/shared';
@@ -36,9 +36,30 @@ function InputField({ id, label, type = 'text', placeholder, error, rightSlot, .
 }
 
 export default function LoginPage() {
+    return (
+        <Suspense fallback={<div className="flex justify-center py-20"><Loader2 className="w-8 h-8 animate-spin" style={{ color: '#EA610E' }} /></div>}>
+            <LoginForm />
+        </Suspense>
+    );
+}
+
+function LoginForm() {
     const router = useRouter();
+    const searchParams = useSearchParams();
     const setAuth = useAuthStore((state) => state.setAuth);
     const [error, setError] = useState<string | null>(null);
+
+    // Capture OAuth tokens from URL after Google redirect
+    useEffect(() => {
+        const accessToken = searchParams.get('accessToken');
+        const refreshToken = searchParams.get('refreshToken');
+
+        if (accessToken && refreshToken) {
+            // Store tokens and redirect to dashboard
+            setAuth(null, accessToken, refreshToken);
+            router.push('/dashboard');
+        }
+    }, [searchParams, setAuth, router]);
 
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginInput>({
         resolver: zodResolver(LoginSchema),
@@ -57,7 +78,7 @@ export default function LoginPage() {
     };
 
     const handleGoogleLogin = () => {
-        window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api'}/auth/google`;
+        window.location.href = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/api/auth/google`;
     };
 
     return (
