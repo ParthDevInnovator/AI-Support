@@ -5,7 +5,7 @@ interface AuthState {
     _hasHydrated: boolean;
     setHasHydrated: (state: boolean) => void;
     isAuthenticated: boolean;
-    user: null | { id: string; email: string; role: string; orgId: string | null };
+    user: null | { id: string; email: string; role: string; orgId: string | null; firstName?: string; lastName?: string; orgName?: string };
     token: string | null;
     refreshToken: string | null;
     setAuth: (user: AuthState['user'], token: string, refreshToken: string) => void;

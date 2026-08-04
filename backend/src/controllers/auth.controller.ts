@@ -16,7 +16,7 @@ export const register = async (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Validation failed', details: result.error.errors });
     }
 
-    const { orgName, email, password, firstName, lastName } = result.data;
+    const { email, password } = result.data;
 
     try {
         // Check if user exists
@@ -28,25 +28,14 @@ export const register = async (req: Request, res: Response) => {
         // Hash password
         const passwordHash = await bcrypt.hash(password, 10);
 
-        // Create org and user in a transaction
-        const newUser = await prisma.$transaction(async (tx) => {
-            const org = await tx.organization.create({
-                data: {
-                    name: orgName,
-                    slug: generateSlug(orgName),
-                },
-            });
-
-            const user = await tx.user.create({
-                data: {
-                    email,
-                    passwordHash,
-                    role: 'admin', // First user in org is admin
-                    orgId: org.id,
-                },
-            });
-
-            return user;
+        // Create user without orgId
+        const newUser = await prisma.user.create({
+            data: {
+                email,
+                passwordHash,
+                role: 'admin', // First user in org is admin, we keep this assumption
+                orgId: null,
+            },
         });
 
         const tokens = generateTokens({ userId: newUser.id, orgId: newUser.orgId, role: newUser.role });
@@ -54,7 +43,7 @@ export const register = async (req: Request, res: Response) => {
         res.status(201).json({
             success: true,
             data: {
-                user: { id: newUser.id, email: newUser.email, role: newUser.role, orgId: newUser.orgId },
+                user: { id: newUser.id, email: newUser.email, role: newUser.role, orgId: newUser.orgId, firstName: newUser.firstName, lastName: newUser.lastName },
                 tokens,
             },
         });
@@ -72,7 +61,10 @@ export const login = async (req: Request, res: Response) => {
     const { email, password } = result.data;
 
     try {
-        const user = await prisma.user.findUnique({ where: { email } });
+        const user = await prisma.user.findUnique({
+            where: { email },
+            include: { organization: true }
+        });
         if (!user || !user.passwordHash) {
             return res.status(401).json({ error: 'Invalid email or password' });
         }
@@ -91,7 +83,15 @@ export const login = async (req: Request, res: Response) => {
         res.status(200).json({
             success: true,
             data: {
-                user: { id: user.id, email: user.email, role: user.role, orgId: user.orgId },
+                user: {
+                    id: user.id,
+                    email: user.email,
+                    role: user.role,
+                    orgId: user.orgId,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    orgName: user.organization?.name
+                },
                 tokens,
             },
         });
@@ -110,7 +110,10 @@ export const refresh = async (req: Request, res: Response) => {
         const payload = verifyRefreshToken(refreshToken);
 
         // In a prod app, verify if the user/org still exist and are active
-        const user = await prisma.user.findUnique({ where: { id: payload.userId } });
+        const user = await prisma.user.findUnique({
+            where: { id: payload.userId },
+            include: { organization: true }
+        });
         if (!user || user.status !== 'active') {
             return res.status(401).json({ error: 'User is inactive or deleted' });
         }

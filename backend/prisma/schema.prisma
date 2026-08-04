@@ -27,6 +27,8 @@ model User {
   orgId        String?
   organization Organization? @relation(fields: [orgId], references: [id])
   email        String   @unique
+  firstName    String?
+  lastName     String?
   passwordHash String?
   role         String   @default("agent")
   status              String    @default("active")
