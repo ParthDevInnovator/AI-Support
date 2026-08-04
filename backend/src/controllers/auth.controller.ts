@@ -5,10 +5,7 @@ import prisma from '../utils/db';
 import { generateTokens, verifyRefreshToken } from '../utils/jwt';
 import { RegisterSchema, LoginSchema, ForgotPasswordSchema, ResetPasswordSchema } from '@repo/shared';
 
-// Slug generation utility for orgs
-const generateSlug = (name: string) => {
-    return name.toLowerCase().replace(/[^a-z0-9]+/g, '-') + '-' + crypto.randomBytes(2).toString('hex');
-};
+
 
 export const register = async (req: Request, res: Response) => {
     const result = RegisterSchema.safeParse(req.body);
@@ -47,7 +44,7 @@ export const register = async (req: Request, res: Response) => {
                 tokens,
             },
         });
-    } catch (error) {
+    } catch (_error) {
         res.status(500).json({ error: 'Internal server error while registering' });
     }
 };
@@ -95,7 +92,7 @@ export const login = async (req: Request, res: Response) => {
                 tokens,
             },
         });
-    } catch (error) {
+    } catch (_error) {
         res.status(500).json({ error: 'Internal server error while logging in' });
     }
 };
@@ -121,7 +118,7 @@ export const refresh = async (req: Request, res: Response) => {
         const tokens = generateTokens({ userId: user.id, orgId: user.orgId, role: user.role });
 
         res.status(200).json({ success: true, data: { tokens } });
-    } catch (error) {
+    } catch (_error) {
         res.status(401).json({ error: 'Invalid or expired refresh token' });
     }
 };
@@ -158,7 +155,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
         // await sendEmail(user.email, 'Reset your password', resetLink);
 
         res.status(200).json({ success: true, message: 'If an account exists, a reset link has been sent' });
-    } catch (error) {
+    } catch (_error) {
         res.status(500).json({ error: 'Internal server error' });
     }
 };
@@ -195,7 +192,7 @@ export const resetPassword = async (req: Request, res: Response) => {
         });
 
         res.status(200).json({ success: true, message: 'Password has been safely reset' });
-    } catch (error) {
+    } catch (_error) {
         res.status(500).json({ error: 'Internal server error' });
     }
 };

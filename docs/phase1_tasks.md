@@ -90,14 +90,14 @@
 ## Sprint 4 — Ticket Management (Days 14–22)
 
 ### T4.1 – Ticket Backend APIs
-- [ ] `POST /api/tickets` — create ticket (manual)
-- [ ] `GET /api/tickets` — list tickets with filters (status, priority, assignee, dateRange, search) + pagination
-- [ ] `GET /api/tickets/:id` — get ticket detail with messages + AI analysis
-- [ ] `PATCH /api/tickets/:id` — update ticket (status, priority, assignee)
-- [ ] `POST /api/tickets/:id/messages` — add reply or internal note
-- [ ] `PATCH /api/tickets/bulk` — bulk update (close, assign)
-- [ ] `POST /api/tickets/:id/escalate` — manually escalate ticket
-- [ ] All routes filtered by `orgId` from JWT — tenant isolation enforced
+- [x] Create `POST /api/tickets` (Creates a ticket + initial message, adds to queue).
+- [x] Create `GET /api/tickets` (List with filters: status, priority, assignee, paginated).
+- [x] Create `GET /api/tickets/:id` (Fetch details + messages).
+- [x] Create `PATCH /api/tickets/:id` (Update status, priority, assignment).
+- [x] Create `POST /api/tickets/:id/messages` (Add reply/internal note).
+- [x] Create `PATCH /api/tickets/bulk` (Bulk resolve, block, assign).
+- [x] `POST /api/tickets/:id/escalate` — manually escalate ticket
+- [x] All routes filtered by `orgId` from JWT — tenant isolation enforced
 
 ### T4.2 – Ticket Inbox UI
 - [ ] `/tickets` page — ticket list with columns: Subject, Customer, Status, Priority, Assignee, Sentiment, Created

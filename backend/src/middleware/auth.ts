@@ -2,9 +2,10 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyAccessToken, JwtPayload } from '../utils/jwt';
 
 declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace Express {
         interface User extends JwtPayload {
-            [key: string]: any;
+            [key: string]: unknown;
         }
     }
 }

@@ -30,7 +30,6 @@ export const createTicket = async (req: Request, res: Response) => {
     const orgId = getOrgId(req, res);
     if (!orgId) return;
 
-    const userId = (req.user as JwtPayload).userId;
     const { subject, customerEmail, body, priority, source, assignedTo } = result.data;
 
     try {
@@ -84,7 +83,7 @@ export const listTickets = async (req: Request, res: Response) => {
 
     const skip = (page - 1) * limit;
 
-    const where: any = {
+    const where: Record<string, unknown> = {
         orgId, // tenant isolation
         ...(status && { status }),
         ...(priority && { priority }),
@@ -260,7 +259,7 @@ export const bulkUpdateTickets = async (req: Request, res: Response) => {
     const { ticketIds, action, assignTo } = result.data;
 
     // Determine update payload based on action
-    let updateData: Record<string, any> = {};
+    let updateData: Record<string, string | undefined> = {};
     if (action === 'close') updateData = { status: 'closed' };
     else if (action === 'resolve') updateData = { status: 'resolved' };
     else if (action === 'assign') updateData = { assignedTo: assignTo };
