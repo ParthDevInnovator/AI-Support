@@ -46,6 +46,8 @@ if (GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET) {
                                 email,
                                 googleId: profile.id,
                                 role: 'admin',
+                                firstName: profile.name?.givenName || null,
+                                lastName: profile.name?.familyName || null,
                             },
                         })) as any;
                     }

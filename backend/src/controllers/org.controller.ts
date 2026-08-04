@@ -15,7 +15,7 @@ export const setupOrganization = async (req: Request, res: Response) => {
         return res.status(400).json({ error: 'Validation failed', details: result.error.errors });
     }
 
-    const { orgName, timezone } = result.data;
+    const { orgName, timezone, firstName, lastName } = result.data;
     const userId = req.user?.userId;
 
     if (!userId) {
@@ -47,6 +47,8 @@ export const setupOrganization = async (req: Request, res: Response) => {
                 data: {
                     orgId: org.id,
                     role: 'admin',
+                    firstName,
+                    lastName,
                 },
             });
 

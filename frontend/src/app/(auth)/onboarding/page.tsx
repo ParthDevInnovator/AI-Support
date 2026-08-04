@@ -15,9 +15,11 @@ export default function OnboardingPage() {
     const { user, token, refreshToken, setAuth, isAuthenticated, _hasHydrated } = useAuthStore();
     const [isLoading, setIsLoading] = useState(false);
     const [serverError, setServerError] = useState('');
-    const [errors, setErrors] = useState<{ orgName?: string; timezone?: string }>({});
+    const [errors, setErrors] = useState<{ firstName?: string; lastName?: string; orgName?: string; timezone?: string }>({});
 
     // Keep state
+    const [firstName, setFirstName] = useState(user?.firstName || '');
+    const [lastName, setLastName] = useState(user?.lastName || '');
     const [orgName, setOrgName] = useState('');
     const [timezone, setTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC');
 
@@ -36,7 +38,7 @@ export default function OnboardingPage() {
         setServerError('');
         setIsLoading(true);
 
-        const data: OnboardingInput = { orgName, timezone };
+        const data: OnboardingInput = { firstName, lastName, orgName, timezone };
 
         try {
             // Validate locally using Zod
@@ -50,7 +52,7 @@ export default function OnboardingPage() {
 
             if (user) {
                 setAuth(
-                    { ...user, orgId: organization.id },
+                    { ...user, orgId: organization.id, firstName, lastName, orgName: organization.name },
                     tokens.accessToken,
                     tokens.refreshToken
                 );
@@ -96,6 +98,36 @@ export default function OnboardingPage() {
                         {serverError}
                     </div>
                 )}
+
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                        <Label htmlFor="firstName" style={{ color: '#F0ECE6' }}>First Name</Label>
+                        <Input
+                            id="firstName"
+                            type="text"
+                            placeholder="e.g. Jane"
+                            value={firstName}
+                            onChange={(e) => setFirstName(e.target.value)}
+                            disabled={isLoading}
+                            className="bg-[#2C3647] border-0 text-[#F0ECE6] focus-visible:ring-1 focus-visible:ring-[#EA610E]"
+                        />
+                        {errors.firstName && <p className="text-xs text-red-400">{errors.firstName}</p>}
+                    </div>
+
+                    <div className="space-y-2">
+                        <Label htmlFor="lastName" style={{ color: '#F0ECE6' }}>Last Name</Label>
+                        <Input
+                            id="lastName"
+                            type="text"
+                            placeholder="e.g. Doe"
+                            value={lastName}
+                            onChange={(e) => setLastName(e.target.value)}
+                            disabled={isLoading}
+                            className="bg-[#2C3647] border-0 text-[#F0ECE6] focus-visible:ring-1 focus-visible:ring-[#EA610E]"
+                        />
+                        {errors.lastName && <p className="text-xs text-red-400">{errors.lastName}</p>}
+                    </div>
+                </div>
 
                 <div className="space-y-2">
                     <Label htmlFor="orgName" style={{ color: '#F0ECE6' }}>Workspace Name</Label>

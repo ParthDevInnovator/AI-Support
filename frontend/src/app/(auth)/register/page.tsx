@@ -10,27 +10,7 @@ import api from '@/lib/axios';
 import { useAuthStore } from '@/store';
 import { AlertCircle, Loader2 } from 'lucide-react';
 
-function InputField({ id, label, type = 'text', placeholder, error, ...rest }: any) {
-    return (
-        <div className="space-y-1.5">
-            <label htmlFor={id} className="text-sm font-medium" style={{ color: '#F0ECE6' }}>{label}</label>
-            <input
-                id={id}
-                type={type}
-                placeholder={placeholder}
-                style={{
-                    backgroundColor: '#1f1209',
-                    borderColor: error ? '#EA610E' : '#64290C',
-                    color: '#F0ECE6',
-                    outline: 'none',
-                }}
-                className="w-full h-11 px-4 rounded-xl border text-sm transition-all focus:border-[#EA610E] placeholder:text-[#5a4435]"
-                {...rest}
-            />
-            {error && <p className="text-xs font-medium" style={{ color: '#EA610E' }}>{error}</p>}
-        </div>
-    );
-}
+import { InputField } from '@/components/ui/input-field';
 
 export default function RegisterPage() {
     const router = useRouter();
@@ -72,11 +52,6 @@ export default function RegisterPage() {
             )}
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                <div className="grid grid-cols-2 gap-3">
-                    <InputField id="firstName" label="First name" placeholder="Jane" error={errors.firstName?.message} {...register('firstName')} />
-                    <InputField id="lastName" label="Last name" placeholder="Doe" error={errors.lastName?.message} {...register('lastName')} />
-                </div>
-                <InputField id="orgName" label="Organization name" placeholder="Acme Corp" error={errors.orgName?.message} {...register('orgName')} />
                 <InputField id="email" label="Work email" type="email" placeholder="jane@company.com" error={errors.email?.message} {...register('email')} />
                 <InputField id="password" label="Password" type="password" placeholder="Min 8 characters" error={errors.password?.message} {...register('password')} />
 
