@@ -1,5 +1,5 @@
 import { z } from 'zod'
-import { TicketStatus, TicketPriority, ReplyTone } from '../types/enums'
+import { TicketStatus, TicketPriority, TicketSource, ReplyTone } from '../types/enums'
 
 // ── Create Ticket ─────────────────────────────────────────────────────────────
 export const CreateTicketSchema = z.object({
@@ -8,6 +8,8 @@ export const CreateTicketSchema = z.object({
     customerEmail: z.string().email('Invalid customer email'),
     customerName: z.string().max(100).optional(),
     priority: z.nativeEnum(TicketPriority).default(TicketPriority.MEDIUM),
+    source: z.nativeEnum(TicketSource).default(TicketSource.MANUAL),
+    assignedTo: z.string().uuid('Invalid assignee ID').optional(),
 })
 export type CreateTicketInput = z.infer<typeof CreateTicketSchema>
 
