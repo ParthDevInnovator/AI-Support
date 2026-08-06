@@ -40,8 +40,8 @@ export default function TicketsLayout({ children }: { children: React.ReactNode 
                                     key={item.href}
                                     href={item.href}
                                     className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${isActive
-                                            ? 'bg-[rgba(234,97,14,0.1)] text-[#EA610E]'
-                                            : 'text-[#8a7060] hover:bg-[#1f1209] hover:text-[#F0ECE6]'
+                                        ? 'bg-[rgba(234,97,14,0.1)] text-[#EA610E]'
+                                        : 'text-[#8a7060] hover:bg-[#1f1209] hover:text-[#F0ECE6]'
                                         }`}
                                 >
                                     <Icon className="w-4 h-4 shrink-0" />
@@ -53,22 +53,20 @@ export default function TicketsLayout({ children }: { children: React.ReactNode 
 
                     <div className="p-4 border-t border-[#64290C]">
                         <DropdownMenu>
-                            <DropdownMenuTrigger asChild>
-                                <button className="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-[#1f1209] transition-colors text-left">
-                                    <Avatar className="h-9 w-9 bg-[#2C3647] border border-[#64290C]">
-                                        <AvatarFallback className="bg-transparent text-[#EA610E] text-xs font-semibold">
-                                            {user?.firstName?.[0]}{user?.lastName?.[0]}
-                                        </AvatarFallback>
-                                    </Avatar>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-sm font-medium text-[#F0ECE6] truncate">
-                                            {user?.firstName} {user?.lastName}
-                                        </p>
-                                        <p className="text-xs text-[#8a7060] truncate uppercase tracking-wider">
-                                            {user?.orgName}
-                                        </p>
-                                    </div>
-                                </button>
+                            <DropdownMenuTrigger className="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-[#1f1209] transition-colors text-left">
+                                <Avatar className="h-9 w-9 bg-[#2C3647] border border-[#64290C]">
+                                    <AvatarFallback className="bg-transparent text-[#EA610E] text-xs font-semibold">
+                                        {user?.firstName?.[0]}{user?.lastName?.[0]}
+                                    </AvatarFallback>
+                                </Avatar>
+                                <div className="flex-1 min-w-0">
+                                    <p className="text-sm font-medium text-[#F0ECE6] truncate">
+                                        {user?.firstName} {user?.lastName}
+                                    </p>
+                                    <p className="text-xs text-[#8a7060] truncate uppercase tracking-wider">
+                                        {user?.orgName}
+                                    </p>
+                                </div>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end" className="w-56 bg-[#1f1209] border-[#64290C] text-[#F0ECE6]">
                                 <DropdownMenuItem className="focus:bg-[#64290C] focus:text-[#F0ECE6] cursor-pointer" onClick={logout}>
