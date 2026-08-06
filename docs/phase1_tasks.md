@@ -100,14 +100,14 @@
 - [x] All routes filtered by `orgId` from JWT — tenant isolation enforced
 
 ### T4.2 – Ticket Inbox UI
-- [ ] `/tickets` page — ticket list with columns: Subject, Customer, Status, Priority, Assignee, Sentiment, Created
-- [ ] Left filter panel: Status tabs, Priority, Category, Assignee, Date Range
-- [ ] Search bar (debounced, calls API)
-- [ ] Pagination controls
-- [ ] Click row → navigate to `/tickets/:id`
-- [ ] Bulk selection checkboxes + bulk action toolbar (assign, close, mark resolved)
-- [ ] Status badge chips with color coding
-- [ ] Priority indicator (colored dot)
+- [x] `/tickets` page — ticket list with columns: Subject, Customer, Status, Priority, Assignee, Sentiment, Created
+- [x] Left filter panel: Status tabs, Priority, Category, Assignee, Date Range
+- [x] Search bar (debounced, calls API)
+- [x] Pagination controls
+- [x] Click row → navigate to `/tickets/:id`
+- [x] Bulk selection checkboxes + bulk action toolbar (assign, close, mark resolved)
+- [x] Status badge chips with color coding
+- [x] Priority indicator (colored dot)
 
 ### T4.3 – Ticket Detail UI
 - [ ] `/tickets/:id` page — 3-column layout:
