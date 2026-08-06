@@ -110,14 +110,14 @@
 - [x] Priority indicator (colored dot)
 
 ### T4.3 – Ticket Detail UI
-- [ ] `/tickets/:id` page — 3-column layout:
+- [x] `/tickets/:id` page — 3-column layout:
   - Left: ticket list (mini inbox, keep context)
   - Center: message thread (customer + agent messages, internal notes)
   - Right sidebar: customer info + AI analysis panel
-- [ ] Message composer (TipTap editor) — reply or internal note toggle
-- [ ] Send reply button
-- [ ] Ticket header: Subject, Status dropdown, Priority dropdown, Assignee dropdown
-- [ ] Action buttons: Resolve, Escalate, Close
+- [x] Message composer (TipTap editor) — reply or internal note toggle
+- [x] Send reply button
+- [x] Ticket header: Subject, Status dropdown, Priority dropdown, Assignee dropdown
+- [x] Action buttons: Resolve, Escalate, Close
 
 ---
 
