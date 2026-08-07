@@ -172,10 +172,10 @@ RENDER_DEPLOY_HOOK_URL
 | Sprint | Days | Focus | Status |
 |---|---|---|---|
 | Sprint 1 | 1–4 | Monorepo, backend & frontend bootstrap, CI/CD | ✅ Done |
-| Sprint 2 | 5–7 | Prisma schema design + DB migrations | 🔄 In Progress |
-| Sprint 3 | 8–13 | Authentication (JWT, Google OAuth, RBAC) | 🔜 Upcoming |
-| Sprint 4 | 14–22 | Ticket management APIs + Inbox UI | 🔜 Upcoming |
-| Sprint 5 | 23–30 | AI ticket analysis via Gemini + BullMQ | 🔜 Upcoming |
+| Sprint 2 | 5–7 | Prisma schema design + DB migrations | ✅ Done |
+| Sprint 3 | 8–13 | Authentication (JWT, Google OAuth, RBAC) | ✅ Done |
+| Sprint 4 | 14–22 | Ticket management APIs + Inbox UI | ✅ Done |
+| Sprint 5 | 23–30 | AI ticket analysis via Gemini + BullMQ | 🔄 In Progress |
 | Sprint 6 | 31–38 | AI reply generation + editor flow | 🔜 Upcoming |
 | Sprint 7 | 39–46 | Team management + Super Admin panel | 🔜 Upcoming |
 
