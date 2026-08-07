@@ -124,13 +124,13 @@
 ## Sprint 5 — AI Ticket Analysis (Days 23–30)
 
 ### T5.1 – Gemini Integration (Backend)
-- [ ] Install `@google/generative-ai` SDK
-- [ ] Create `ai/gemini.ts` — init Gemini client with API key
-- [ ] Create `ai/ticketAnalyzer.ts`:
+- [x] Install `@google/generative-ai` SDK
+- [x] Create `ai/gemini.ts` — init Gemini client with API key
+- [x] Create `ai/ticketAnalyzer.ts`:
   - Build analysis prompt with ticket subject + body
   - Call Gemini, parse structured JSON response
   - Return: `{ category, subcategory, priority, sentiment, intent, urgency, language, confidenceScore, summary }`
-- [ ] Wrap in try/catch with fallback defaults if AI fails
+- [x] Wrap in try/catch with fallback defaults if AI fails
 
 ### T5.2 – BullMQ Job Setup
 - [ ] Install BullMQ + connect to Upstash Redis (`ioredis` with TLS URL)
